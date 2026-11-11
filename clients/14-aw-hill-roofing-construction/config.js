@@ -23,7 +23,7 @@ window.SITE = {
     logo: "",            // путь к файлу логотипа, напр. "images/logo.png"
     heroImage: "",       // большое фото сверху (их крыша/бригада), напр. "images/hero.jpg"
     googleReviewsUrl: "",// ссылка на их отзывы в Google
-    facebookUrl: "",
+    facebookUrl: "https://www.facebook.com/awhillroofing",
   },
 
   // ---- Факты для блока "Почему нам доверять" (только подтверждённые!) ----

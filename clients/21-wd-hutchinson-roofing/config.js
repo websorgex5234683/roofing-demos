@@ -11,19 +11,19 @@ window.SITE = {
   demo: true,
 
   business: {
-    name: "Epic Roofing & Construction, Inc",            // Название компании, напр. "Smith Roofing LLC"
+    name: "W.D. Hutchinson Roofing LLC",            // Название компании, напр. "Smith Roofing LLC"
     ownerName: "",       // Имя владельца (если известно)
     tagline: "",         // Слоган, если есть у них самих. Пусто -> "Roofing Contractor in Город, Штат"
-    phone: "(352) 470-7338",           // Телефон как пишется: "(813) 555-1234"
+    phone: "(863) 686-3300",           // Телефон как пишется: "(813) 555-1234"
     email: "",
-    address: "3650 SE 93rd Pl, Ocala, FL 34480",         // Полный адрес. Пусто, если работают без офиса
-    city: "Ocala",            // Главный город, напр. "Tampa"
+    address: "1717 W Memorial Blvd, Lakeland, FL",         // Полный адрес. Пусто, если работают без офиса
+    city: "Lakeland",            // Главный город, напр. "Tampa"
     state: "FL",           // "FL" или "TX"
-    hours: ["Mon–Sun: 6am – 8pm"],           // напр. ["Mon–Fri: 7am – 6pm", "Sat: 8am – 2pm"]
+    hours: [],           // напр. ["Mon–Fri: 7am – 6pm", "Sat: 8am – 2pm"]
     logo: "",            // путь к файлу логотипа, напр. "images/logo.png"
     heroImage: "",       // большое фото сверху (их крыша/бригада), напр. "images/hero.jpg"
     googleReviewsUrl: "",// ссылка на их отзывы в Google
-    facebookUrl: "",
+    facebookUrl: "https://www.facebook.com/WDHutchinsonRoofingLLC",
   },
 
   // ---- Факты для блока "Почему нам доверять" (только подтверждённые!) ----
@@ -32,8 +32,8 @@ window.SITE = {
     insured: false,        // true только если они сами пишут, что застрахованы
     yearsInBusiness: "",   // напр. 15
     foundedYear: "",       // напр. 2009 (если известен год, а не стаж)
-    googleRating: "",      // напр. 4.9
-    googleReviewCount: "", // напр. 87
+    googleRating: "5.0",      // напр. 4.9
+    googleReviewCount: "29", // напр. 87
     certifications: [],    // напр. ["GAF Certified Contractor", "Owens Corning Preferred"]
     warranty: "",          // как пишут они сами, напр. "10-Year Workmanship Warranty"
     insuranceClaims: false,// true, если помогают со страховыми случаями
