@@ -233,3 +233,42 @@ p{margin:0 0 1em}
   .mb-call{background:var(--accent);color:#fff}
   .mb-insp{background:var(--ink);color:#fff}
 }
+
+
+/* ===== v2 design effects ===== */
+/* 4 + 2: sunset sky + shingle texture (only when there is no real photo) */
+.hero:not(.has-img)::before{background:
+  radial-gradient(1100px 380px at 70% 112%,color-mix(in srgb,var(--accent) 55%,transparent),transparent 70%),
+  linear-gradient(180deg,#0E1621 0%,#152232 45%,#2A2A35 78%,#4A3029 100%)}
+.hero:not(.has-img)::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Cpath d='M0 11.5h48M0 23.5h48M12 0v12M36 12v12' stroke='white' stroke-opacity='.07' stroke-width='1'/%3E%3C/svg%3E");
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 55%);mask-image:linear-gradient(180deg,transparent 0%,#000 55%)}
+.hero-grid{z-index:1}
+
+/* 5: house draws itself */
+.house .draw{stroke-dasharray:1;stroke-dashoffset:1;fill-opacity:0;
+  animation:draw .9s ease forwards,fillin .6s ease forwards;animation-delay:var(--d),calc(var(--d) + .7s)}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fillin{to{fill-opacity:1}}
+
+/* 10: lift on hover */
+.card,.why-item .ic.big,.btn{transition:transform .2s ease,box-shadow .2s ease}
+@media (hover:hover){
+  .card:hover{transform:translateY(-5px);box-shadow:0 2px 4px rgba(20,32,44,.06),0 18px 40px rgba(20,32,44,.14)}
+  .btn:hover{transform:translateY(-2px)}
+  .why-item:hover .ic.big{transform:translateY(-3px) rotate(-4deg)}
+}
+
+/* 13: reviews carousel on phones */
+.swipe-hint{display:none}
+@media (max-width:640px){
+  .reviews{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:0 -22px;padding:6px 22px 16px;scrollbar-width:none}
+  .reviews::-webkit-scrollbar{display:none}
+  .reviews .review{flex:0 0 86%;scroll-snap-align:center}
+  .swipe-hint{display:block;margin:4px 0 0;font-size:14px;font-weight:600;color:var(--muted)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .house .draw{animation:none;stroke-dashoffset:0;fill-opacity:1}
+  .card,.btn{transition:none}
+}
