@@ -85,7 +85,7 @@
 
   // ---------- demo bar ----------
   if (S.demo) {
-    put("demo", '<div class="demo-bar"><strong>Demo preview</strong> — a free sample website' + (has(B.name) ? " made for " + esc(B.name) : "") + ". Not published.</div>");
+    put("demo", '<div class="demo-bar"><strong>Demo preview</strong> — a free sample website' + (has(B.name) ? " made for " + esc(String(B.name).replace(/\.$/, "")) : "") + ". Not published.</div>");
   }
 
   // ---------- header ----------
@@ -138,17 +138,19 @@
       ctaButtons(true) + "</div></section>";
   }
 
+  // v2: house is drawn line by line on load (class "draw", order via --d delay)
   var houseSvg =
     '<svg class="house" viewBox="0 0 420 320" aria-hidden="true">' +
     '<defs><pattern id="sh" width="28" height="16" patternUnits="userSpaceOnUse"><path d="M0 15.5h28M14 0v16" stroke="rgba(255,255,255,.18)" stroke-width="1.2"/></pattern></defs>' +
-    '<rect x="78" y="168" width="264" height="140" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>' +
-    '<rect x="282" y="60" width="30" height="70" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>' +
-    '<path d="M40 178 210 48l170 130z" fill="url(#sh)" stroke="var(--accent)" stroke-width="5" stroke-linejoin="round"/>' +
-    '<path d="M30 186 210 48l180 138" fill="none" stroke="var(--accent)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>' +
-    '<rect x="186" y="228" width="48" height="80" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>' +
-    '<rect x="106" y="206" width="52" height="44" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>' +
-    '<rect x="262" y="206" width="52" height="44" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>' +
-    '<path d="M20 308h380" stroke="rgba(255,255,255,.35)" stroke-width="2"/></svg>';
+    '<path class="draw" style="--d:0s" pathLength="1" d="M20 308h380" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2"/>' +
+    '<rect class="draw" style="--d:.25s" pathLength="1" x="78" y="168" width="264" height="140" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>' +
+    '<rect class="draw" style="--d:.6s" pathLength="1" x="282" y="60" width="30" height="70" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>' +
+    '<path class="draw roof-fill" style="--d:.7s" pathLength="1" d="M40 178 210 48l170 130z" fill="url(#sh)" stroke="var(--accent)" stroke-width="5" stroke-linejoin="round"/>' +
+    '<path class="draw" style="--d:.9s" pathLength="1" d="M30 186 210 48l180 138" fill="none" stroke="var(--accent)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<rect class="draw" style="--d:1.3s" pathLength="1" x="186" y="228" width="48" height="80" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>' +
+    '<rect class="draw" style="--d:1.45s" pathLength="1" x="106" y="206" width="52" height="44" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>' +
+    '<rect class="draw" style="--d:1.6s" pathLength="1" x="262" y="206" width="52" height="44" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>' +
+    '</svg>';
 
   // ---------- page header (inner pages) ----------
   function pageHead(kicker, title, sub) {
@@ -165,7 +167,7 @@
       "<h1>" + h1 + "</h1>" +
       '<p class="lead">' + (services.length
         ? services.slice(0, 3).map(function (s) { return esc(s.title); }).join(", ").replace(/, ([^,]*)$/, " & $1") + "."
-        : "Roof repair and replacement questions? Talk to a local roofer.") + "</p>" +
+        : "Talk directly to a local roofer. Call or request a roof inspection online.") + "</p>" +
       ctaButtons(true) + chips(4) + areasLine() +
       "</div>" + (has(B.heroImage) ? "" : '<div class="hero-art">' + houseSvg + "</div>") + "</div></section>";
   }
@@ -193,7 +195,7 @@
     return '<section class="sec"><div class="wrap"><div class="sec-top"><div><p class="kicker">Reviews</p><h2>What Customers Say</h2></div>' + head + "</div>" +
       (reviews.length ? '<div class="grid reviews">' + reviews.map(function (r) {
         return '<figure class="card review">' + (has(r.stars) ? stars(r.stars) : "") + "<blockquote>“" + esc(r.text || "") + "”</blockquote><figcaption><strong>" + esc(r.name || "") + "</strong>" + (has(r.source) ? " · " + esc(r.source) : "") + "</figcaption></figure>";
-      }).join("") + "</div>" : "") +
+      }).join("") + "</div>" + (reviews.length > 1 ? '<p class="swipe-hint">Swipe for more reviews →</p>' : "") : "") +
       (has(B.googleReviewsUrl) ? '<p class="more"><a href="' + esc(B.googleReviewsUrl) + '" target="_blank" rel="noopener">Read all reviews on Google ' + ic("arrow") + "</a></p>" : "") +
       "</div></section>";
   }
@@ -228,7 +230,7 @@
   var showPh = S.demo && !projects.length;
 
   function workTeaser() {
-    if (showPh) return '<section class="sec alt"><div class="wrap"><div class="sec-top"><div><p class="kicker">Recent projects</p><h2>Our Work</h2></div><a class="btn btn-ghost" href="work.html">See all projects ' + ic("arrow") + "</a></div>" + placeholders(3) + "</div></section>";
+    if (showPh) return '<section class="sec alt"><div class="wrap"><div class="sec-top"><div><p class="kicker">Recent projects</p><h2>Our Work</h2></div><a class="btn btn-ghost" href="work.html">See all projects ' + ic("arrow") + "</a></div>" + placeholders(3).replace('class="grid projects"', 'class="grid projects teaser"') + "</div></section>";
     if (!projects.length) return "";
     return '<section class="sec alt"><div class="wrap"><div class="sec-top"><div><p class="kicker">Recent projects</p><h2>Our Work</h2></div><a class="btn btn-ghost" href="work.html">See all projects ' + ic("arrow") + "</a></div>" +
       projectsGrid(projects.slice(0, 3)) + "</div></section>";
@@ -302,7 +304,7 @@
   // ---------- render page ----------
   var html = "";
   if (page === "home") {
-    html = hero() + servicesSec() + whySec() + workTeaser() + reviewsSec() + areasSec(false) + ctaBand();
+    html = hero() + servicesSec() + whySec() + reviewsSec() + workTeaser() + areasSec(false) + ctaBand();
   } else if (page === "work") {
     html = pageHead("Our Work", "Recent Roofing Projects" + (where ? " in " + esc(where) : ""),
       showPh ? "Before &amp; after photos of your jobs will appear here." : projects.some(function (p) { return has(p.before) && has(p.after); }) ? "Drag the slider on each photo to compare before and after." : "") +
