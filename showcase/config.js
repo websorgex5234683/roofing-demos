@@ -36,9 +36,9 @@ window.SITE = {
     { name: "Maria L.", stars: 5, text: "They found a small leak two other companies missed. Honest people, I recommend them to all my neighbors." },
   ],
   projects: [
-    { title: "Full Roof Replacement", city: "Brandon", before: "images/p1-before.svg", after: "images/p1-after.svg", text: "Old worn shingles replaced with new architectural shingles in 2 days." },
-    { title: "Storm Damage Repair", city: "Riverview", before: "images/p2-before.svg", after: "images/p2-after.svg", text: "Emergency tarp after the storm, then a full new roof covered by insurance." },
-    { title: "Metal Roof Upgrade", city: "Clearwater", before: "images/p3-before.svg", after: "images/p3-after.svg", text: "Aging shingle roof upgraded to a standing seam metal roof." },
+    { title: "Full Roof Replacement", city: "Brandon", before: "https://images.unsplash.com/photo-1761959166803-ed952543eeae?w=1200&h=900&fit=crop&q=80", after: "https://images.unsplash.com/photo-1780080019323-20a5fb128906?w=1200&h=900&fit=crop&q=80", text: "Damaged old roof torn off and replaced with new architectural shingles." },
+    { title: "Storm Damage Repair", city: "Riverview", before: "https://images.unsplash.com/photo-1782274951165-b88199bde548?w=1200&h=900&fit=crop&q=80", after: "https://images.unsplash.com/photo-1573876384005-dabc14a8ccbd?w=1200&h=900&fit=crop&q=80", text: "Shingles blown off in a storm — replaced and sealed the same week." },
+    { title: "Metal Roof Upgrade", city: "Clearwater", before: "https://images.unsplash.com/photo-1658798105979-b6f06529fbd0?w=1200&h=900&fit=crop&q=80", after: "https://images.unsplash.com/photo-1779941373840-a93f6e0d5db0?w=1200&h=900&fit=crop&q=80", text: "Worn-out wood shake roof replaced with a standing seam metal roof." },
   ],
   faq: [
     { q: "How long does a roof replacement take?", a: "Most homes are done in 1–2 days. We'll give you an exact schedule with your estimate." },
