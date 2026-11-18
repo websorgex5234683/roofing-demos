@@ -35,7 +35,11 @@ window.SITE = {
     { name: "Robert T.", stars: 5, text: "Fair price, clear estimate, and the crew cleaned up every nail. You would never know they were here." },
     { name: "Maria L.", stars: 5, text: "They found a small leak two other companies missed. Honest people, I recommend them to all my neighbors." },
   ],
-  projects: [],
+  projects: [
+    { title: "Full Roof Replacement", city: "Brandon", before: "images/p1-before.svg", after: "images/p1-after.svg", text: "Old worn shingles replaced with new architectural shingles in 2 days." },
+    { title: "Storm Damage Repair", city: "Riverview", before: "images/p2-before.svg", after: "images/p2-after.svg", text: "Emergency tarp after the storm, then a full new roof covered by insurance." },
+    { title: "Metal Roof Upgrade", city: "Clearwater", before: "images/p3-before.svg", after: "images/p3-after.svg", text: "Aging shingle roof upgraded to a standing seam metal roof." },
+  ],
   faq: [
     { q: "How long does a roof replacement take?", a: "Most homes are done in 1–2 days. We'll give you an exact schedule with your estimate." },
     { q: "Do you help with insurance claims?", a: "Yes. We document the damage with photos and meet with your adjuster if needed." },
