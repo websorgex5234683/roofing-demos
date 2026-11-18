@@ -272,3 +272,11 @@ p{margin:0 0 1em}
   .house .draw{animation:none;stroke-dashoffset:0;fill-opacity:1}
   .card,.btn{transition:none}
 }
+
+/* v3: show the drawing house on phones/tablets above the headline */
+@media (max-width:900px){
+  .hero-art{display:block;order:-1;width:100%;max-width:260px;margin:0 auto 8px}
+}
+@media (max-width:640px){
+  .hero-art{max-width:190px;margin:-8px auto 4px}
+}
