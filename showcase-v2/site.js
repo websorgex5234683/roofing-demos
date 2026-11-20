@@ -340,32 +340,41 @@
     Array.prototype.forEach.call(els, function (el) {
       el.classList.add("rv");
       var sib = el.parentNode ? Array.prototype.indexOf.call(el.parentNode.children, el) : 0;
-      if (el.classList.contains("card") || el.tagName === "LI" || el.tagName === "DETAILS") el.style.setProperty("--d", Math.min(sib, 6) * 90 + "ms");
+      if (el.classList.contains("card") || el.tagName === "LI" || el.tagName === "DETAILS") el.dataset.d = Math.min(sib, 6) * 90;
     });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        var t = e.target; t.classList.add("in"); io.unobserve(t); setTimeout(function () { t.style.removeProperty("--d"); }, 1400);
+        var t = e.target;
+        clearTimeout(t._rvT);
+        if (e.isIntersecting) {
+          if (t.dataset.d) t.style.setProperty("--d", t.dataset.d + "ms");
+          t.classList.add("in");
+          t._rvT = setTimeout(function () { t.style.removeProperty("--d"); }, 1400);
+        } else {
+          t.style.removeProperty("--d");
+          t.classList.remove("in");
+        }
       });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
     Array.prototype.forEach.call(els, function (el) { io.observe(el); });
 
     // 2) count-up for real numbers only (rating + review count)
     function countUp(el) {
-      var m = el.textContent.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/);
+      el._orig = el._orig || el.textContent; el._counting = true;
+      var m = el._orig.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/);
       if (!m) return;
       var target = parseFloat(m[2]), dec = (m[2].split(".")[1] || "").length, t0 = null, dur = 1200;
       function step(t) {
         if (!t0) t0 = t;
         var k = Math.min(1, (t - t0) / dur), v = target * (1 - Math.pow(1 - k, 3));
         el.textContent = m[1] + v.toFixed(dec) + m[3];
-        if (k < 1) requestAnimationFrame(step);
+        if (k < 1) requestAnimationFrame(step); else el._counting = false;
       }
       requestAnimationFrame(step);
     }
     var nums = document.querySelectorAll(".rating-big strong, .rating-big span:last-child");
     var io2 = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { countUp(e.target); io2.unobserve(e.target); } });
+      entries.forEach(function (e) { if (e.isIntersecting && !e.target._counting) countUp(e.target); });
     }, { threshold: 0.6 });
     Array.prototype.forEach.call(nums, function (n) { io2.observe(n); });
 
